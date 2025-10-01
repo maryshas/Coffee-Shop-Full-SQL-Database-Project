@@ -9,44 +9,61 @@ A few example of SQL queries from this project:
    - Insight: Shows which shops are over- or under-staffed.
 
    SELECT s.shop_name, COUNT(e.employee_id) AS employee_count
+   
    FROM shops s
+   
    JOIN employees e ON s.coffeeshop_id = e.coffeeshop_id
+   
    GROUP BY s.shop_name;
 
-2. Top Suppliers by Bean Type
+3. Top Suppliers by Bean Type
    - Query: List all suppliers and the types of coffee beans they provide.
    - Insight: Helps identify supplier diversity and sourcing options.
 
    SELECT supplier_name, bean_type, COUNT(*) AS shops_supplied
+   
    FROM suppliers
+   
    GROUP BY supplier_name, bean_type
+   
    ORDER BY shops_supplied DESC;
 
-3. Employees by City
+5. Employees by City
    - Query: Find out how many employees are located in each city.
    - Insight: Useful for regional workforce planning.
 
    SELECT l.city, COUNT(e.employee_id) AS employees_in_city
+   
    FROM locations l
+   
    JOIN shops s ON l.city_id = s.city_id
+   
    JOIN employees e ON s.coffeeshop_id = e.coffeeshop_id
+   
    GROUP BY l.city;
 
-4. Average Employee Salary by Shop
+7. Average Employee Salary by Shop
    - Query: Calculate the average salary of employees per coffee shop.
    - Insight: Highlights salary differences across locations.
 
    SELECT s.shop_name, AVG(e.salary) AS avg_salary
+   
    FROM shops s
+   
    JOIN employees e ON s.coffeeshop_id = e.coffeeshop_id
+   
    GROUP BY s.shop_name;
 
-5. Recently Hired Employees
+9. Recently Hired Employees
    - Query: Get a list of employees hired after 2020.
    - Insight: Identifies new hires and recent workforce growth.
 
    SELECT first_name, last_name, hire_date, shop_name
+   
    FROM employees e
+   
    JOIN shops s ON e.coffeeshop_id = s.coffeeshop_id
+   
    WHERE hire_date >= '2020-01-01'
+   
    ORDER BY hire_date DESC;
