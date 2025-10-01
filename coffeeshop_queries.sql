@@ -420,3 +420,36 @@ SELECT
 	) AS pay_pattern
 FROM employees e1
 ORDER BY hire_date;
+
+-- Extra queries
+-- Count the number of employees working in each coffee shop
+SELECT s.shop_name, COUNT(e.employee_id) AS employee_count
+FROM shops s
+JOIN employees e ON s.coffeeshop_id = e.coffeeshop_id
+GROUP BY s.shop_name;
+
+-- List all suppliers and the types of coffee beans they provide
+SELECT supplier_name, bean_type, COUNT(*) AS shops_supplied
+FROM suppliers
+GROUP BY supplier_name, bean_type
+ORDER BY shops_supplied DESC;
+
+-- Find out how many employees are located in each city
+SELECT l.city, COUNT(e.employee_id) AS employees_in_city
+FROM locations l
+JOIN shops s ON l.city_id = s.city_id
+JOIN employees e ON s.coffeeshop_id = e.coffeeshop_id
+GROUP BY l.city;
+
+-- Calculate the average salary of employees per coffee shop
+SELECT s.shop_name, AVG(e.salary) AS avg_salary
+FROM shops s
+JOIN employees e ON s.coffeeshop_id = e.coffeeshop_id
+GROUP BY s.shop_name;
+
+-- Get a list of employees hired after 2020
+SELECT first_name, last_name, hire_date, shop_name
+FROM employees e
+JOIN shops s ON e.coffeeshop_id = s.coffeeshop_id
+WHERE hire_date >= '2020-01-01'
+ORDER BY hire_date DESC;
